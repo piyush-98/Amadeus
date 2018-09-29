@@ -27,6 +27,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     private ArrayList<String> GPS;
     private ArrayList<String> PROB;
     private ArrayList<String> DESC;
+
+ //   private ArrayList<String> ATTENDANCE;
+    private ArrayList<String> FIRED;
+    private ArrayList<String> GPSS;
+
+
+
     private RotateLoading rotateLoading;
   int pos=0;
   @Override
@@ -122,6 +129,70 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
 
 
+
+
+
+        DatabaseReference myRef11 = database.getReference("MONKEY");
+
+        // Read from the database
+        myRef11.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+               // ATTENDANCE=new ArrayList<>();
+                FIRED=new ArrayList<>();
+                GPSS=new ArrayList<>();
+                // This method is called once with the initial value and again
+                // whenever data at this location is updated.
+                for (DataSnapshot dataSnapshot1:dataSnapshot.getChildren())
+                {  for (DataSnapshot dataSnapshot2:dataSnapshot1.getChildren())
+                {if (dataSnapshot2.getKey().equals("gps")) {
+                    Log.e("GPSSSSSSS", String.valueOf(dataSnapshot2.getValue()));
+                    GPSS.add(String.valueOf(dataSnapshot2.getValue()));
+
+
+                }
+                    if (dataSnapshot2.getKey().equals("fired")) {
+                        Log.e("firedd", String.valueOf(dataSnapshot2.getValue()));
+                        FIRED.add(String.valueOf(dataSnapshot2.getValue()));
+
+
+                    }
+                }
+
+                }
+                for (int i=0;i<GPSS.size();i++)
+                {  String latlong[]=GPSS.get(i).split(",");
+                    double lat= Double.parseDouble(latlong[0]);
+                    double longi= Double.parseDouble(latlong[1]);
+                    LatLng sydney = new LatLng(lat,longi);
+if (Integer.parseInt(FIRED.get(i))>4)
+                    mMap.addMarker(new MarkerOptions().position(sydney).title("Monkey prone area").snippet(FIRED.get(i)+" times detected").icon(BitmapDescriptorFactory.fromResource(R.drawable.monkey)));
+                }
+                rotateLoading.stop();
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError error) {
+                // Failed to read value
+                Log.w(TAG, "Failed to read value.", error.toException());
+            }
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         // Add a marker in Sydney and move the camera
         Log.e("zzzz"+ MainActivity.lat, ""+ MainActivity.longi);
      //   LatLng sydney1 = new LatLng(MainActivity.lat, MainActivity.longi);
@@ -169,7 +240,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap.addMarker(new MarkerOptions().position(sydney8111).title("PROBLEM").snippet("PROBLEM").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_stat_name)));
         mMap.addMarker(new MarkerOptions().position(sydney9111).title("PROBLEM").snippet("PROBLEM").icon(BitmapDescriptorFactory.fromResource(R.drawable.ic_stat_name)));
 
-       mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney1,12));
+       mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(sydney1,17));
 
 
           }

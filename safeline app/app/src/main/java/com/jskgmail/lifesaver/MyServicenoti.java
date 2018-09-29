@@ -74,6 +74,8 @@ public class MyServicenoti extends Service {
             public void onDataChange(DataSnapshot dataSnapshot) {
 
                 String msgid=dataSnapshot.getValue(String.class);
+                SharedPreferences prefs = getSharedPreferences("msg",MODE_PRIVATE);
+                String stopp = prefs.getString("stop", "false");
 
                 assert msgid != null;
                 if (!msgid.equals(MainActivity.lastid))
@@ -82,6 +84,8 @@ public class MyServicenoti extends Service {
 
                     SharedPreferences.Editor editor= getSharedPreferences("msg",MODE_PRIVATE).edit();
                     editor.putString("lastmsgid",msgid);
+                    editor.apply();
+                    editor.putString("stop","true");
                     editor.apply();
 
 
@@ -114,6 +118,7 @@ public class MyServicenoti extends Service {
 
         String channelId = getString(R.string.default_notification_channel_id);
         Uri defaultSoundUri= RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
                         .setSmallIcon(R.drawable.ic_arrow_back_black_24dp)
