@@ -37,8 +37,7 @@
         <activity
             android:name=".MainActivity"
             android:label="SAFELINE"
-            android:theme="@style/AppTheme.NoActionBar">
-                  </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -81,17 +80,25 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jskgmail.lifesaver.MainActivity" />
         </activity>
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
+        <activity
+            android:name=".MapsActivity"
+            android:label="MAP" />
         <activity
             android:name=".EmailPasswordActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity android:name=".MainintroActivity" >
-        <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
+        <activity android:name=".MainintroActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".beaconreference.MonitoringActivity"
@@ -130,12 +137,14 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jskgmail.lifesaver.MainActivity" />
         </activity>
+        <activity
+            android:name=".Main22Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
 
-        <activity android:name=".Main22Activity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-
-
-        </activity>
+        <service
+            android:name=".MyServicenoti"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>
