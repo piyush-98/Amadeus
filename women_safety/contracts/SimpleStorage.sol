@@ -3,7 +3,7 @@ pragma solidity 0.4.24;
 contract SimpleStorage {
 string ipfsHash;
 address private _owner;
-
+string location;
  
   event OwnershipRenounced(address indexed previousOwner);
   event OwnershipTransferred(
@@ -71,6 +71,15 @@ address private _owner;
     _owner = newOwner;
   }
 
+function addLocation(string loc)
+{
+  location=loc;
+}
+
+function getLocation()public view returns (string) {
+require(isOwner());
+return location;
+}
 function set(string x) public {
     
     ipfsHash = x;
