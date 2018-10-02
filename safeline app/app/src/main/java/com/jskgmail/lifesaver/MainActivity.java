@@ -20,7 +20,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.ContactsContract;
-import android.provider.Settings;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
@@ -102,7 +101,7 @@ public class MainActivity extends AppCompatActivity
 
     private CardPagerAdapter mCardAdapter;
     private ShadowTransformer mCardShadowTransformer;
-     static    String lastid;
+
 
     private SliderLayout mDemoSlider;
     private static final int RESULT_PICK_CONTACT = 85;
@@ -111,8 +110,8 @@ public class MainActivity extends AppCompatActivity
     ListViewAdfrlist adapter;
     static String phon="",naam="";
     static String myLocation;
-    static double mylocationa=28;
-    static double myLocationb=77;int ch=0;
+    static double mylocationa;
+    static double myLocationb;int ch=0;
     static String bloodloc;
     public static String hospname="";
         public static String bbname="";
@@ -160,9 +159,6 @@ RelativeLayout rl;
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-lastid= Settings.Secure.getString(this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-
 rl=findViewById(R.id.rla);
 
         senSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
@@ -205,7 +201,7 @@ Toast.makeText(getApplicationContext(),"LAt"+lat+longi,Toast.LENGTH_SHORT).show(
 
 
 
-        startService(new Intent(getBaseContext(), MyServicenoti.class));
+
 
 
 
@@ -2105,9 +2101,7 @@ if (flood.equals("1"))
 
        Toast.makeText(getApplicationContext(),"Safety Plus Plus activated just shake your phone for danger",Toast.LENGTH_LONG).show();
        }
-else if (id==R.id.maap){
-           startActivity(new Intent(MainActivity.this,MapsActivity.class));
-       }
+
           else if (id == R.id.beacon) {
 
             Intent i = new Intent(MainActivity.this, MonitoringActivity.class);

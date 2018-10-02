@@ -14,7 +14,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -25,8 +24,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.jskgmail.lifesaver.BluetoothHelper.BluetoothHelper;
 import com.jskgmail.lifesaver.BluetoothHelper.BluetoothListener;
 import com.jskgmail.lifesaver.MainActivity;
@@ -39,7 +36,6 @@ import org.altbeacon.beacon.BeaconParser;
 import org.altbeacon.beacon.BeaconTransmitter;
 
 import java.util.Arrays;
-import java.util.Calendar;
 
 public class BeaconTransmitterActivity1 extends AppCompatActivity implements
         BluetoothListener.OnBluetoothSupportedCheckListener, BluetoothListener.OnBluetoothEnabledCheckListener,
@@ -89,29 +85,6 @@ public class BeaconTransmitterActivity1 extends AppCompatActivity implements
         boolean isEnabled = ContextCompat.checkSelfPermission(this, android.Manifest.permission.CAMERA)
                 == PackageManager.PERMISSION_GRANTED;
 
-
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("PROBLEMS");
-        DatabaseReference myRef1 =myRef.child(
-                (String.valueOf(Calendar.getInstance().getTime())));
-        myRef1.child("Description").setValue("Emergency, phone shaked");
-        myRef1.child("GPS").setValue(MainActivity.latlong);
-        myRef1.child("Prob").setValue("EMERGENCY");
-
-
-
-        DatabaseReference myRef44 = database.getReference("notify");
-
-        String mynaam= Settings.Secure.getString(this.getContentResolver(),
-                Settings.Secure.ANDROID_ID);
-        myRef44.setValue(mynaam);
-
-
-
-        SharedPreferences.Editor editor =getSharedPreferences("msg", MODE_PRIVATE).edit();
-        editor.putString("lastmsgid", mynaam);
-        editor.apply();
 
         ActivityCompat.requestPermissions(BeaconTransmitterActivity1.this, new String[]{android.Manifest.permission.CAMERA}, CAMERA_REQUEST);
 
@@ -330,15 +303,6 @@ public class BeaconTransmitterActivity1 extends AppCompatActivity implements
         SharedPreferences preference = getSharedPreferences("emergency", MODE_PRIVATE);
         String phno = preference.getString("mob", null);
         String numbers = "";
-
-
-
-
-
-
-
-
-
 
         if (phno != null) {
 
